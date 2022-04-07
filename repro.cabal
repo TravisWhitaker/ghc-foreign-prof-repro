@@ -1,0 +1,28 @@
+cabal-version:       >=1.10
+
+name:                repro
+version:             0.1.0.0
+build-type:          Simple
+
+foreign-library repro
+  type:             native-shared
+  other-modules:    Repro
+  hs-source-dirs:   src
+  build-depends:    base
+  c-sources:        cbits/repro.c
+  include-dirs:     include
+  install-includes: repro.h
+  default-language: Haskell2010
+  ghc-options:      -O2
+                    -Wall
+                    -Widentities
+                    -Wredundant-constraints
+                    -Wcompat
+                    -Wno-type-defaults
+                    -Wno-unused-local-binds
+                    -Wno-unused-do-bind
+                    -Wno-unused-matches
+                    -Werror
+                    -threaded
+  if (os(darwin))
+    ghc-options: -optP-Wno-nonportable-include-path
