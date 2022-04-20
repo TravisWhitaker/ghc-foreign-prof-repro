@@ -8,10 +8,20 @@ let pkgsrc = builtins.fetchTarball
     {
         overrides = self: super:
         {
-            enableLibraryProfiling = true;
+            mkDerivation = args: super.mkDerivation (args //
+            {
+                enableLibraryProfiling = true;
+                enableExecutableProfiling = true;
+            });
+            ghc = super.ghc.override
+            {
+                enableProfiledLibs = true;
+            };
         };
-    }).ghcWithPackages (p: [p.cabal-install]);
+    }).ghcWithPackages (p: [p.base]);
 in pkgs.mkShell
 {
-    packages = [hspkgs];
+    packages = [ hspkgs
+                 pkgs.haskell.packages.ghc8107.cabal-install
+               ];
 }
