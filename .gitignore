@@ -8,3 +8,4 @@
 **/.stack-work
 **/.ghc.environment*
 **/*.csv
+**/cabal.project.local*
